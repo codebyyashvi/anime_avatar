@@ -54,4 +54,7 @@ for epoch in range(50):
 
         loop.set_postfix(G=loss_G.item(), D=loss_D.item())
 
-    torch.save(G.state_dict(), f"generator_epoch_{epoch+1}.pth")
+    if loss_G.item() < best_loss:
+        best_loss = loss_G.item()
+        torch.save(G.state_dict(), "generator_best.pth")
+torch.save(G.state_dict(), "generator_final.pth")
